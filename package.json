@@ -1,22 +1,8 @@
 {
-  "name": "react-mixin",
-  "version": "5.0.0",
+  "name": "@ericlewis/react-mixin",
+  "version": "6.0.1",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "smart-mixin": "^2.0.0"
-  },
-  "devDependencies": {
-    "6to5ify": "^4.0.0",
-    "babel-polyfill": "^6.0.16",
-    "expect.js": "^0.3.1",
-    "mocha": "^2.1.0",
-    "react": "^0.13.0-beta.1",
-    "sinon": "^1.12.2"
-  },
-  "scripts": {
-    "test": "mocha test/*"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/brigand/react-mixin.git"

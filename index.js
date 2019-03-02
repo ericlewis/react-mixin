@@ -1,5 +1,4 @@
-var mixin = require('smart-mixin');
-var assign = require('object-assign');
+var mixin = require("./smart-mixin");
 
 var mixinProto = mixin({
   // lifecycle stuff is as you'd expect
@@ -29,7 +28,7 @@ function setInitialState(reactMixin) {
 
   function applyInitialState(instance) {
     var state = instance.state || {};
-    assign(state, getInitialState.call(instance));
+    Object.assign(state, getInitialState.call(instance));
     instance.state = state;
   }
 
@@ -57,12 +56,12 @@ function mixinClass(reactClass, reactMixin) {
   var staticProps = {};
 
   Object.keys(reactMixin).forEach(function(key) {
-    if (key === 'mixins') {
+    if (key === "mixins") {
       return; // Handled below to ensure proper order regardless of property iteration order
     }
-    if (key === 'statics') {
+    if (key === "statics") {
       return; // gets special handling
-    } else if (typeof reactMixin[key] === 'function') {
+    } else if (typeof reactMixin[key] === "function") {
       prototypeMethods[key] = reactMixin[key];
     } else {
       staticProps[key] = reactMixin[key];
@@ -85,7 +84,10 @@ function mixinClass(reactClass, reactMixin) {
     Object.keys(right).forEach(function(rightKey) {
       if (left[rightKey]) {
         result[rightKey] = function checkBothContextTypes() {
-          return right[rightKey].apply(this, arguments) && left[rightKey].apply(this, arguments);
+          return (
+            right[rightKey].apply(this, arguments) &&
+            left[rightKey].apply(this, arguments)
+          );
         };
       } else {
         result[rightKey] = right[rightKey];
@@ -109,7 +111,13 @@ function mixinClass(reactClass, reactMixin) {
       var right = reactMixin.statics[key];
 
       if (left !== undefined && right !== undefined) {
-        throw new TypeError('Cannot mixin statics because statics.' + key + ' and Component.' + key + ' are defined.');
+        throw new TypeError(
+          "Cannot mixin statics because statics." +
+            key +
+            " and Component." +
+            key +
+            " are defined."
+        );
       }
 
       reactClass[key] = left !== undefined ? left : right;
@@ -139,7 +147,7 @@ module.exports = (function() {
 
   reactMixin.onClass = function(reactClass, mixin) {
     // we mutate the mixin so let's clone it
-    mixin = assign({}, mixin);
+    mixin = Object.assign({}, mixin);
     return mixinClass(reactClass, mixin);
   };
 

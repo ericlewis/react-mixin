@@ -1,7 +1,5 @@
-var objectAssign = require('object-assign');
-
 function toUnsafe(mixin) {
-  var mixin2 = objectAssign({}, mixin);
+  var mixin2 = Object.assign({}, mixin);
 
   if (mixin2.componentWillMount) {
     mixin2.UNSAFE_componentWillMount = mixin2.componentWillMount;
